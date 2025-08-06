@@ -38,7 +38,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:50610") // React dev server
+        policy.WithOrigins("https://saverr.netlify.app/") // React dev server
               .AllowAnyHeader()
               .AllowAnyOrigin()
               .AllowAnyMethod();

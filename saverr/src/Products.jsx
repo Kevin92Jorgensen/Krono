@@ -17,7 +17,7 @@ function Products() {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        `https://localhost:7076/Product?search=${encodeURIComponent(
+        `https://api.kevinjoergensen.dk/Product?search=${encodeURIComponent(
           query
         )}&organicOnly=${onlyOrganic}`
       );

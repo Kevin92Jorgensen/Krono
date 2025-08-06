@@ -12,7 +12,7 @@ function BarcodeScanner(params) {
     console.log("Scanned barcode:", code);
 
     try {
-      var scan = await axios.post("https://localhost:7076/Scan", JSON.stringify(code), {
+        var scan = await axios.post("https://api.kevinjoergensen.dk/Scan", JSON.stringify(code), {
         headers: {
           "Content-Type": "application/json",
         },
