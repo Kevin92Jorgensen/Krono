@@ -67,7 +67,7 @@ function Products() {
         style={{
           alignItems: "center", // centers items horizontally in column
           width: "100%",
-          padding: "1rem",
+          padding: "5px",
         }}
       >
         <input
@@ -76,9 +76,10 @@ function Products() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyDown}
-          style={{ width: "50%", padding: "10px", marginBottom: "1rem" }}
+                  style={{  width: "50%", padding: "10px"}}
         />
-        <label>
+          </div>
+          <label style={{ fontSize: "10px", } }>
           <input
             type="checkbox"
             checked={onlyOrganic}
@@ -87,7 +88,6 @@ function Products() {
           />
           &nbsp; Vis kun økologiske produkter
         </label>
-      </div>
       <div
         style={{
           flex: 1,

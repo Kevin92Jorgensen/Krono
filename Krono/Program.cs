@@ -38,7 +38,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("https://saverr.netlify.app/") // React dev server
+        policy.WithOrigins("https://saverr.netlify.app", "https://app.kevinjoergensen.dk") // React dev server
               .AllowAnyHeader()
               .AllowAnyOrigin()
               .AllowAnyMethod();
@@ -54,7 +54,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowFrontend"); // ?? enable it
+app.UseCors("AllowFrontend"); 
 
 app.UseAuthorization();
 

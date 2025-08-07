@@ -77,7 +77,7 @@ function BarcodeScanner(params) {
       <button onClick={() => stopScanner()} style={{ marginBottom: "10px" }}>
         Stop Scanner
       </button>
-      <video ref={videoRef} style={{ width: "100%", height: "520px" }} />
+      <video ref={videoRef} style={{ width: "100%", height: "35%" }} />
     </div>
   );
 }
