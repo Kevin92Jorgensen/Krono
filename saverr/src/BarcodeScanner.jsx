@@ -1,6 +1,6 @@
 import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 
 function BarcodeScanner() {
