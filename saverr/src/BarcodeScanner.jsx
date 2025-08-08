@@ -35,7 +35,11 @@ function BarcodeScanner() {
     }
 
     const successToast = (data) => {
-        toast.succes(data);
+        toast.succes(data, {
+            closeOnClick: true,
+            pauseOnHover: false,
+            pauseOnFocusLoss: false,
+        });
 
     }
 
@@ -84,7 +88,7 @@ function BarcodeScanner() {
           <ToastContainer position="buttom-right" autoClose={3000} />
 
 
-      <video ref={videoRef} style={{ width: "100%", height: "35%" }} />
+      <video ref={videoRef} style={{ width: "100%", height: "15%" }} />
     </div>
   );
 }
