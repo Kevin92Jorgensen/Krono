@@ -1,12 +1,11 @@
 import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 
-function BarcodeScanner(params) {
+function BarcodeScanner() {
   const videoRef = useRef(null);
   const codeReader = useRef(null);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const handleScan = async (code) => {
 
@@ -17,22 +16,31 @@ function BarcodeScanner(params) {
         },
       });
 
-      if(!scan.status || scan.status !== 200) {
-        setError(scan.data || "Error saving barcode");
-        setSuccess(null);
+        if (!scan.status || scan.status !== 200) {
+            errorToast(scan.data || "Error saving barcode");
         return;
-      }
-      setSuccess("Barcode saved successfully!");
-      setError(null);
+        }
+        successToast('Barcode saved successfully!');
+
     } catch (error) {
-      setError(error.response?.data || "Error saving barcode");
-      setSuccess(null);
+        errorToast(error.response?.data || "Error saving barcode");
+
       console.error("Error saving barcode:", error);
     }
-  };
+    };
 
-  useEffect(() => {
+    const errorToast = (data) => {
+        toast.error(data);
 
+    }
+
+    const successToast = (data) => {
+        toast.succes(data);
+
+    }
+
+    useEffect(() => {
+       
     codeReader.current = new BrowserMultiFormatReader();
 
     codeReader.current
@@ -49,7 +57,7 @@ function BarcodeScanner(params) {
             }
             if (err && !(err instanceof NotFoundException)) {
               console.error("Error decoding barcode:", err);
-              setError("Error decoding barcode. Please try again.");
+                errorToast("Error decoding barcode. Please try again.");
             }
 
           }
@@ -57,7 +65,7 @@ function BarcodeScanner(params) {
       })
       .catch((err) => {
         console.error(err);
-        setError("Camera access denied or not available.");
+          errorToast("Camera access denied or not available.");
       });
 
     return () => stopScanner();
@@ -68,13 +76,14 @@ function BarcodeScanner(params) {
   };
 
   return (
-    <div>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-        {success && <p style={{ color: "green" }}>{success}</p>}
+      <div>
+          <button onClick={()=>errorToast("data")}>test</button>
       <button onClick={() => stopScanner()} style={{ marginBottom: "10px" }}>
         Stop Scanner
-      </button>
+          </button>
+          <ToastContainer position="buttom-right" autoClose={3000} />
+
+
       <video ref={videoRef} style={{ width: "100%", height: "35%" }} />
     </div>
   );
