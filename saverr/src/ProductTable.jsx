@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useMediaQuery } from '@mui/material';
 
 function createData(id, gtid, name, brand, imageMimeType, imageData, price, shop) {
     return { id, gtid, name, brand, imageMimeType, imageData, price, shop };
@@ -22,6 +23,8 @@ function createData(id, gtid, name, brand, imageMimeType, imageData, price, shop
 //];
 
 export default function BasicTable({ products }) {
+    const isSmallScreen = useMediaQuery('(max-width:600px)');
+
     var rows = [];
     const [favorites, setFavorites] = useState([]);
 
@@ -56,11 +59,21 @@ export default function BasicTable({ products }) {
             <Table sx={{ width: '100%' }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Navn</TableCell>
-                        <TableCell align="right">Mærke</TableCell>
-                        <TableCell align="right">Bedste pris</TableCell>
-                        <TableCell align="right">Butik</TableCell>
-                        <TableCell align="right">
+                        <TableCell sx={{
+                            fontSize: isSmallScreen ? '0.8rem' : '1rem'
+                        }}>Navn</TableCell>
+                        <TableCell sx={{
+                            fontSize: isSmallScreen ? '0.8rem' : '1rem'
+                        }} align="right">Mærke</TableCell>
+                        <TableCell sx={{
+                            fontSize: isSmallScreen ? '0.8rem' : '1rem'
+                        }} align="right">Bedste pris</TableCell>
+                        <TableCell sx={{
+                            fontSize: isSmallScreen ? '0.8rem' : '1rem'
+                        }} align="right">Butik</TableCell>
+                        <TableCell sx={{
+                            fontSize: isSmallScreen ? '0.8rem' : '1rem'
+                        }} align="right">
                            </TableCell>
                     </TableRow>
                 </TableHead>
@@ -73,10 +86,18 @@ export default function BasicTable({ products }) {
                             <TableCell component="th" scope="row">
                                 {row.name}
                             </TableCell>
-                            <TableCell align="right">{row.brand}</TableCell>
-                            <TableCell align="right">{row.price} kr.</TableCell>
-                            <TableCell align="right">{row.shop}</TableCell>
-                            <TableCell align="right">
+                            <TableCell sx={{
+                                fontSize: isSmallScreen ? '0.8rem' : '1rem'
+                            }} align="right">{row.brand}</TableCell>
+                            <TableCell sx={{
+                                fontSize: isSmallScreen ? '0.8rem' : '1rem'
+                            }} align="right">{row.price} kr.</TableCell>
+                            <TableCell sx={{
+                                fontSize: isSmallScreen ? '0.8rem' : '1rem'
+                            }} align="right">{row.shop}</TableCell>
+                            <TableCell sx={{
+                                fontSize: isSmallScreen ? '0.8rem' : '1rem'
+                            }} align="right">
                                 {row.imageData &&
                                     <img
                                         src={"data:" + row.imageMimeType + ";base64," + row.imageData}
