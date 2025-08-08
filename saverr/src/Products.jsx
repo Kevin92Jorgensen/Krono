@@ -29,7 +29,6 @@ function Products() {
 
       // Assuming your API returns an array of products:
       setProducts(data);
-      console.log(data);
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {

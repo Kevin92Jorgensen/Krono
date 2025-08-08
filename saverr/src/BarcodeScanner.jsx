@@ -9,7 +9,6 @@ function BarcodeScanner(params) {
   const [success, setSuccess] = useState("");
 
   const handleScan = async (code) => {
-    console.log("Scanned barcode:", code);
 
     try {
         var scan = await axios.post("https://api.kevinjorgensen.dk/Scan", JSON.stringify(code), {
@@ -23,7 +22,6 @@ function BarcodeScanner(params) {
         setSuccess(null);
         return;
       }
-      console.log("scan", scan);
       setSuccess("Barcode saved successfully!");
       setError(null);
     } catch (error) {

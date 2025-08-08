@@ -25,12 +25,10 @@ export default function BasicTable({ products }) {
     var rows = [];
     const [favorites, setFavorites] = useState([]);
 
-    console.log(products)
     for(var product of products) {
         const lowest = product.priceEntries.reduce((min, current) =>
             current.price < min.price ? current : min
         );
-        console.log(lowest)
         rows.push(createData(product.id, product.gtid, product.name, product.brand, product.imageMimeType, product.imageData, (lowest.price / 100), lowest.shop.name))
         if (product.favorite) {
             setFavorites([...favorites],product.gtid)
