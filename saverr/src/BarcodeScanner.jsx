@@ -6,6 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 function BarcodeScanner() {
   const videoRef = useRef(null);
   const codeReader = useRef(null);
+  const lastScanAtRef = useRef(0);
+    const lastCodeRef = useRef("");
+    const COOLDOWN_MS = 1500;
 
   const handleScan = async (code) => {
 
@@ -56,7 +59,13 @@ function BarcodeScanner() {
           firstDeviceId,
           videoRef.current,
           (result, err) => {
-            if (result) {
+              if (result) {
+                  const code = result.getText();
+                  const now = Date.now();
+                  if (code === lastCodeRef.current && now - lastScanAtRef.current < COOLDOWN_MS) return;
+
+                  lastCodeRef.current = code;
+                  lastScanAtRef.current = now;
               handleScan(result.getText());
             }
             if (err && !(err instanceof NotFoundException)) {
