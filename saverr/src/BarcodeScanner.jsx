@@ -90,7 +90,9 @@ function BarcodeScanner() {
 
   return (
       <div>
-          <ToastContainer position="buttom-right" autoClose={3000} />
+          <ToastContainer position="buttom-right" autoClose={3000}
+              pauseOnHover={false}
+              pauseOnFocusLoss={false} />
       <button onClick={() => stopScanner()} style={{ marginBottom: "10px" }}>
         Stop Scanner
           </button>
