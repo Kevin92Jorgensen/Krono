@@ -58,7 +58,6 @@ function Products() {
         alignItems: "center",
         
         margin: "auto",
-        padding: "2rem",
       }}
     >
       <div
@@ -66,7 +65,6 @@ function Products() {
         style={{
           alignItems: "center", // centers items horizontally in column
           width: "100%",
-          padding: "5px",
         }}
       >
         <input
