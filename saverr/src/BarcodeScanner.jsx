@@ -95,8 +95,8 @@ function BarcodeScanner() {
         Stop Scanner
           </button>
 
-
-      <video ref={videoRef} style={{ width: "100%", height: "15%" }} />
+          <div style={{ width: "100%", height: "15%" }}>
+      <video ref={videoRef} style={{ width: "100%", height: "15%" }} /></div>
     </div>
   );
 }
