@@ -81,11 +81,10 @@ function BarcodeScanner() {
 
   return (
       <div>
-          <button onClick={()=>errorToast("data")}>test</button>
+          <ToastContainer position="buttom-right" autoClose={3000} />
       <button onClick={() => stopScanner()} style={{ marginBottom: "10px" }}>
         Stop Scanner
           </button>
-          <ToastContainer position="buttom-right" autoClose={3000} />
 
 
       <video ref={videoRef} style={{ width: "100%", height: "15%" }} />
