@@ -19,7 +19,7 @@ function BarcodeScanner() {
         },
       });
 
-        if (!scan.status || scan.status !== 200) {
+        if (scan.status !== 200) {
             errorToast(scan.data || "Error saving barcode");
         return;
         }
