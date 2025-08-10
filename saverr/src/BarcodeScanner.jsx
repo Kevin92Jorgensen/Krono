@@ -38,11 +38,7 @@ function BarcodeScanner() {
     }
 
     const successToast = (data) => {
-        toast.succes(data, {
-            closeOnClick: true,
-            pauseOnHover: false,
-            pauseOnFocusLoss: false,
-        });
+        toast.success(data);
 
     }
 
