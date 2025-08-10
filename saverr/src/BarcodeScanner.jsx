@@ -1,4 +1,4 @@
-import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
+import { BrowserMultiFormatReader, DecodeHintType, BarcodeFormat , NotFoundException } from "@zxing/library";
 import axios from "axios";
 import { useEffect, useRef } from "react";
 import { ToastContainer, toast } from 'react-toastify';
@@ -43,9 +43,15 @@ function BarcodeScanner() {
     }
 
     useEffect(() => {
-       
-    codeReader.current = new BrowserMultiFormatReader();
+        // Create a Map of hints
+        const hints = new Map();
 
+        // Limit to EAN-13 format
+        hints.set(DecodeHintType.POSSIBLE_FORMATS, [BarcodeFormat.EAN_13]);
+
+        // Optional: Try harder if barcode is hard to read
+        hints.set(DecodeHintType.TRY_HARDER, true);
+        codeReader.current = new BrowserMultiFormatReader(hints);
     codeReader.current
       .listVideoInputDevices()
       .then((videoInputDevices) => {
