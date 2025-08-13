@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import ProductTable from "./ProductTable";
 import axios from "../node_modules/axios/index";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -17,7 +18,7 @@ function Products() {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(
-        `https://api.kevinjorgensen.dk/Product?search=${encodeURIComponent(
+        `${API_URL}/Product?search=${encodeURIComponent(
           query
         )}&organicOnly=${onlyOrganic}`
       );

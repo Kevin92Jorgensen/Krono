@@ -2,6 +2,7 @@ import { BrowserMultiFormatReader, DecodeHintType, BarcodeFormat , NotFoundExcep
 import axios from "axios";
 import { useEffect, useRef } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+const API_URL = import.meta.env.VITE_API_URL;
 
 function BarcodeScanner() {
   const videoRef = useRef(null);
@@ -13,7 +14,7 @@ function BarcodeScanner() {
   const handleScan = async (code) => {
 
     try {
-        var scan = await axios.post("https://api.kevinjorgensen.dk/Scan", JSON.stringify(code), {
+        var scan = await axios.post(`${API_URL}/Scan`, JSON.stringify(code), {
         headers: {
           "Content-Type": "application/json",
         },
