@@ -20,7 +20,7 @@ namespace Krono.Infrastructure.Services
         Task StoreImageForProduct(int productId, byte[] data, string mimeType);
         Task<(bool Success, string Message, Barcode? Barcode)> SaveBarcodeAsync(string barcode);
         Task<List<Barcode>> GetUnsavedBarcodes();
-        Task<bool> DeleteBarcode(string barcode);
+        Task<bool> DeleteBarcode(Barcode barcode);
     }
 
     public class ProductService : IProductService
@@ -74,7 +74,7 @@ namespace Krono.Infrastructure.Services
 
             
 
-            var product = await _context.Products
+            var product = await _context.Products.Include(x => x.PriceEntries)
                 .FirstOrDefaultAsync(p => p.Gtid == gtid);
 
             if (product != null) return product;
@@ -235,11 +235,11 @@ namespace Krono.Infrastructure.Services
                 .ToListAsync();
         }
 
-        public async Task<bool> DeleteBarcode(string barcode)
+        public async Task<bool> DeleteBarcode(Barcode barcode)
         {
             try
             {
-                _context.Barcodes.Remove(new Barcode { Gtid = barcode });
+                _context.Barcodes.Remove(barcode);
                 await _context.SaveChangesAsync();
                 return true;
             }

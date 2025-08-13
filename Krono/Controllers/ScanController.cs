@@ -48,7 +48,7 @@ namespace Krono.Controllers
                     continue;
 
                 var product = await _productService.GetProduct(item.Gtin?.ToString());
-                if (product != null && product.ImageMimeType != null && product.PriceEntries.Where(x => x.ShopId == 1 && x.CreatedAt == DateTime.UtcNow) != null)
+                if (product != null && product.ImageMimeType != null && product.PriceEntries.Count > 0 && product.PriceEntries.Where(x => x.ShopId == 1 && x.CreatedAt == DateTime.UtcNow) != null)
                     continue;
 
                 if(product == null)
@@ -133,7 +133,7 @@ namespace Krono.Controllers
                 throw;
             }
         }
-        
+
         [HttpGet("CoopImporter")]
         public async Task<bool> CoopAnalyser()
         {
@@ -144,29 +144,32 @@ namespace Krono.Controllers
 
                 var coop = await _coopImporter.CallCoop(item.Gtid);
                 var random = new Random();
-                await Task.Delay(random.Next(1000, 5000));
                 if (coop == null)
                 {
+                    await _productService.DeleteBarcode(item);
                     continue;
                 }
-                if(products.FirstOrDefault(x => x.Gtid == item.Gtid) == null)
+                await Task.Delay(random.Next(1000, 5000));
+
+                if (products.FirstOrDefault(x => x.Gtid == item.Gtid) == null)
                 {
-                   var product = await _productService.CreateProduct(item.Gtid, coop.DisplayName, coop.DisplayName +" " + coop.Category, null, coop.Category, null, isEu: false, isOrganic: false);
+                   var product = await _productService.CreateProduct(item.Gtid, coop.DisplayName, coop.DisplayName +" " + coop.Category, "", coop.Category, "", isEu: false, isOrganic: false);
                 }
 
                 await _productService.AddPriceForProduct(item.Gtid, (int)Math.Round(coop.SalePrice * 100), "Coop");
-                await _productService.DeleteBarcode(item.Gtid);
+                await _productService.DeleteBarcode(item);
             }
             foreach (var item in products.Where(x => x.PriceEntries.Any(z => z.ShopId == 3)))
             {
 
                 var coop = await _coopImporter.CallCoop(item.Gtid);
                 var random = new Random();
-                await Task.Delay(random.Next(1000, 5000));
                 if (coop == null)
                 {
                     continue;
                 }
+                await Task.Delay(random.Next(200, 5000));
+
                 await _productService.AddPriceForProduct(item.Gtid, (int)Math.Round(coop.SalePrice * 100), "Coop");
             }
 
